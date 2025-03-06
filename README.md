@@ -40,7 +40,7 @@ Toughts/
 
 ```bash
 # Clone o repositório
-git clone https://github.com//NatanaelAquino/Projeto_Toughts.git
+git clone https://github.com/NatanaelAquino/Projeto_Toughts
 
 # Acesse a pasta do projeto
 cd toughts
