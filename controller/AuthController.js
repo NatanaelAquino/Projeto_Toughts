@@ -31,7 +31,7 @@ module.exports = class AuthController {
     req.session.userid = user.id;
 
     req.flash("message", "Autenticação realizada com sucesso!");
-    
+
     req.session.save(() => {
       res.redirect("/");
     });
@@ -80,7 +80,6 @@ module.exports = class AuthController {
       console.log(err);
     }
   }
-
   static logout(req, res) {
     req.session.destroy();
     res.redirect("/login");
