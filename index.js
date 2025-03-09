@@ -11,6 +11,7 @@ const conn = require('./db/conn')
 // models 
 const Tought = require('./models/Tought');
 const User = require('./models/Users');
+const Comments = require('./models/Comments');
 
 // import routes
 const ToughtRouter = require('./routes/ToughtRouter');
@@ -73,8 +74,7 @@ app.use('/', authRouter)
 app.get('/', ToughtsController.showToughts)
 
 conn 
-    //.sync({force:true})
-    .sync()
+    .sync({force:true})
     .then(()=>{
         app.listen(3000)
     })

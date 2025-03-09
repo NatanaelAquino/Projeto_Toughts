@@ -117,7 +117,7 @@ module.exports = class ToughtsController {
       title: req.body.title
     }
   try {
-    await Tought.update(tought, {where:{id:id}})
+    await Tought.update(tought, {where:{id: id}})
     
     req.flash("message", "Atualizado com sucesso!");
       req.session.save(() => {
@@ -126,6 +126,21 @@ module.exports = class ToughtsController {
   } catch (error) {
     console.log(error)
   }
+
+  }
+
+  // comments 
+
+  static async comments(req,res){
+    
+    const id = req.params.id 
+
+
+    const comments = await Tought.findOne({where: { id: id}})    
+    console.log(comments)
+
+    res.render('toughts/comments', comments)
+
 
   }
 };

@@ -8,7 +8,8 @@ const Tought = db.define('Tought', {
         type: DataTypes.STRING,
         allowNull:false,
         require:true
-    }
+    },
+
 })
 
 Tought.belongsTo(User)
