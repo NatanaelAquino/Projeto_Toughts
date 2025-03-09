@@ -1,5 +1,15 @@
 <div class="homer-header">
+
+    {{#if search}}
+    <h1>Você está buscando por {{search}}</h1>
+    {{#if toughtsQty}}
+    <p>Foram encontrados <span>{{toughtsQty}}</span></p>
+    {{else}}
+    <p>Nenhum pensamento foi encontrado para o termo <span>{{search}}</span></p>
+    {{/if}}
+    {{else}}
     <h1>Todos os Pensamentos</h1>
+    {{/if}}
 
     <form action="/" method="get">
         <input type="text" name="search" placeholder="Está buscado por algo?">
@@ -22,11 +32,11 @@
 </div>
 <div class="toughts-container">
     {{#each toughts}}
-        <figure>
-            <blockquote>
-                "{{this.title}}"
-            </blockquote>
-            <figcaption>por <span>{{this.User.name}}</span></figcaption>
-        </figure>
+    <figure>
+        <blockquote>
+            "{{this.title}}"
+        </blockquote>
+        <figcaption>por <span>{{this.User.name}}</span></figcaption>
+    </figure>
     {{/each}}
 </div>
