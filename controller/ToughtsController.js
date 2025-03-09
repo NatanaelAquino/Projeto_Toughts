@@ -1,5 +1,6 @@
 const { where } = require("sequelize");
 const Tought = require("../models/Tought");
+const Comments = require("../models/Comments");
 const User = require("../models/Users");
 
 const {Op} = require('sequelize')
@@ -136,10 +137,12 @@ module.exports = class ToughtsController {
     const id = req.params.id 
 
 
-    const comments = await Tought.findOne({where: { id: id}})    
-    console.log(comments)
+    const comments = await Comments.findOne({where: { id: id}, raw: true})    
+    const tought = await Tought.findOne({where: { id: id}, raw: true})    
 
-    res.render('toughts/comments', comments)
+
+
+    res.render('toughts/comments', {comments , tought})
 
 
   }
