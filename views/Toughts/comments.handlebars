@@ -7,8 +7,8 @@
         <ul>
             {{#each this.comments}}
             <li>
+                <span>{{../toughts.User.name}}</span>
                 <h4>{{this.title}}</h4>
-                <figcaption>por <span>{{../toughts.User.name}}</span></figcaption>
             </li>
             {{/each}}
         </ul>
