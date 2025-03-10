@@ -12,6 +12,8 @@ const conn = require('./db/conn')
 const Tought = require('./models/Tought');
 const User = require('./models/Users');
 const Comments = require('./models/Comments');
+const Like = require('./models/Like');
+
 
 // import routes
 const ToughtRouter = require('./routes/ToughtRouter');

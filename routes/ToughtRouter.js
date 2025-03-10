@@ -14,9 +14,11 @@ router.post('/edit/',checkAuth, ToughtsController.updadteToughtSave)
 
 router.get('/comments/:id',checkAuth, ToughtsController.comments)
 router.post('/comments/',checkAuth, ToughtsController.commentsPost)
+router.post('/like/',checkAuth, ToughtsController.like)
 
 router.get('/dashboard',checkAuth, ToughtsController.dashboard)
 router.post('/remove',checkAuth, ToughtsController.removeTought)
+
 router.get('/', ToughtsController.showToughts)
 
 
