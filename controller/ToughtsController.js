@@ -137,19 +137,23 @@ module.exports = class ToughtsController {
     const id = req.params.id
 
     const comments = await Comments.findAll({ where: { ToughtId: id }, raw: true })
-    const tought = await Tought.findOne({ where: { id: id }, raw: true })
+    const tought = await Tought.findOne({
+      where: { id: id }, include: User,
+    })
 
-    res.render('toughts/comments', { comments, tought })
+    const toughts = tought.get({ plain: true });
+
+     console.log(toughts.User.name)
+
+    res.render('toughts/comments', { comments, toughts })
   }
 
 
   static async commentsPost(req, res) {
-    
-    const title = req.body.title
+
 
     try {
       const comments = {
-
         title: req.body.title,
         ToughtId: req.body.id,
         UserId: req.session.userid

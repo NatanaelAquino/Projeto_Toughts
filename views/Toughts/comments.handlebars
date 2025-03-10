@@ -1,25 +1,25 @@
 <div class="container-comments">
-    <h2>Pensamentos</h2>
-    <h2>{{ this.tought.title}}</h2>
+    <h2>Pensamento:</h2>
+    <h2>{{ this.toughts.title}}</h2>
     <div class="comments">
         <h3>Comentarios</h3>
         {{#if this.comments.length}}
         <ul>
             {{#each this.comments}}
             <li>
-                <p>{{this.title}}</p>
+                <h4>{{this.title}}</h4>
+                <figcaption>por <span>{{../toughts.User.name}}</span></figcaption>
             </li>
             {{/each}}
         </ul>
         {{else}}
         <p>Ainda não há comentários!</p>
         {{/if}}
-
     </div>
     <form action="/toughts/comments" method="POST">
         <div class="form-control">
             <label for="title">Comentario:</label>
-            <input type="hidden" name="id" value='{{this.tought.id}}'>
+            <input type="hidden" name="id" value='{{this.toughts.id}}'>
             <input type="text" name="title" placeholder="Digite o seu comentario....." required>
         </div>
         <input type="submit" value="Comentara">
