@@ -15,6 +15,7 @@ Este projeto faz parte do curso **Crie aplicações completas com Node.js, Expre
 - Listagem de pensamentos públicos
 - Gerenciamento de pensamentos do usuário logado
 - Busca de pensamentos
+- Curtidas e comentários nos pensamentos (diferencial do curso)
 
 ## 📂 Estrutura do Projeto
 
@@ -40,7 +41,7 @@ Toughts/
 
 ```bash
 # Clone o repositório
-git clone https://github.com/NatanaelAquino/Projeto_Toughts
+git clone https://github.com/seu-usuario/toughts.git
 
 # Acesse a pasta do projeto
 cd toughts
@@ -76,7 +77,6 @@ O servidor estará rodando em: `http://localhost:3000`
 
 ## 🛠 Melhorias Futuras
 
-- Implementar um sistema de curtidas
 - Criar API REST para consumo via frontend em React
 
 ## 📜 Licença
