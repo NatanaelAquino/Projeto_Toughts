@@ -37,13 +37,15 @@
             "{{this.title}}"
         </blockquote>
         <figcaption>por <span>{{this.User.name}}</span></figcaption>
-        
-        <a href="/toughts/comments/{{this.id}}" class="btn">Comentarios</a>
 
-        <form action="/" method="POST">
-            <input type="hidden" name="id" value="{{this.id}}">
-            <input type="submit" name="like" value="like">
-        </form>
+        <span class="actions">
+            <form action="/" method="POST">
+                <input type="hidden" name="id" value="{{this.id}}">
+                <input type="submit" name="like" value="like">
+            </form>
+            <a href="/toughts/comments/{{this.id}}" class="btn">Comentarios</a>
+        </span>
+
     </figure>
     {{/each}}
 </div>

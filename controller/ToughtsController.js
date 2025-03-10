@@ -3,42 +3,42 @@ const Tought = require("../models/Tought");
 const Comments = require("../models/Comments");
 const User = require("../models/Users");
 
-const {Op} = require('sequelize')
+const { Op } = require('sequelize')
 
 
 module.exports = class ToughtsController {
   static async showToughts(req, res) {
     let search = ''
 
-    if(req.query.search){
+    if (req.query.search) {
       search = req.query.search
     }
 
     let order = 'DESC'
 
-    if(req.query.order === 'old'){
+    if (req.query.order === 'old') {
       order = 'ASC'
     }
-    else{
+    else {
       order = 'DESC'
     }
 
-    const toughtsData = await Tought.findAll( {
+    const toughtsData = await Tought.findAll({
       include: User,
       where: {
-        title: {[Op.like]: `%${search}%`},
+        title: { [Op.like]: `%${search}%` },
       },
       order: [['createdAt', order]],
 
     })
-    const toughts = toughtsData.map((result) => result.get({plain:true}));
+    const toughts = toughtsData.map((result) => result.get({ plain: true }));
 
     let toughtsQty = toughts.length
 
-    if(toughtsQty === 0){
+    if (toughtsQty === 0) {
       toughtsQty = false
     }
-    res.render("toughts/home", {toughts, search,toughtsQty});
+    res.render("toughts/home", { toughts, search, toughtsQty });
   }
 
   static async dashboard(req, res) {
@@ -56,13 +56,13 @@ module.exports = class ToughtsController {
     }
     const toughts = user.Toughts.map((result) => result.dataValues);
 
-    let emptyToughts = false 
+    let emptyToughts = false
 
-    if(toughts.length === 0 ){
+    if (toughts.length === 0) {
       emptyToughts = true
     }
 
-    res.render("toughts/dashboard", { toughts ,emptyToughts });
+    res.render("toughts/dashboard", { toughts, emptyToughts });
   }
 
   static createToughts(req, res) {
@@ -92,7 +92,7 @@ module.exports = class ToughtsController {
 
     try {
       await Tought.destroy({ where: { id: id, UserId: UserId } });
-      
+
       req.flash("message", "Pensamento removido com sucesso!");
       req.session.save(() => {
         res.redirect("/toughts/dashboard");
@@ -102,48 +102,69 @@ module.exports = class ToughtsController {
     }
   }
 
-  static async updadteTought(req,res){
-    const id = req.params.id 
+  static async updadteTought(req, res) {
+    const id = req.params.id
 
-    const toughts = await Tought.findOne({where:{id:id}, raw: true})
+    const toughts = await Tought.findOne({ where: { id: id }, raw: true })
 
-    res.render('toughts/edit' , {toughts})
+    res.render('toughts/edit', { toughts })
 
   }
 
-  static async updadteToughtSave(req,res){
-     
+  static async updadteToughtSave(req, res) {
+
     const id = req.body.id
     const tought = {
       title: req.body.title
     }
-  try {
-    await Tought.update(tought, {where:{id: id}})
-    
-    req.flash("message", "Atualizado com sucesso!");
+    try {
+      await Tought.update(tought, { where: { id: id } })
+
+      req.flash("message", "Atualizado com sucesso!");
       req.session.save(() => {
         res.redirect("/toughts/dashboard");
       });
-  } catch (error) {
-    console.log(error)
-  }
+    } catch (error) {
+      console.log(error)
+    }
 
   }
 
   // comments 
 
-  static async comments(req,res){
+  static async comments(req, res) {
+
+    const id = req.params.id
+
+    const comments = await Comments.findAll({ where: { ToughtId: id }, raw: true })
+    const tought = await Tought.findOne({ where: { id: id }, raw: true })
+
+    res.render('toughts/comments', { comments, tought })
+  }
+
+
+  static async commentsPost(req, res) {
     
-    const id = req.params.id 
+    const title = req.body.title
 
+    try {
+      const comments = {
 
-    const comments = await Comments.findOne({where: { id: id}, raw: true})    
-    const tought = await Tought.findOne({where: { id: id}, raw: true})    
+        title: req.body.title,
+        ToughtId: req.body.id,
+        UserId: req.session.userid
 
+      }
 
+      await Comments.create(comments)
+      res.redirect(`/`)
 
-    res.render('toughts/comments', {comments , tought})
-
+    } catch (error) {
+      console.log(error)
+    }
 
   }
+
+
+
 };

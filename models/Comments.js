@@ -9,6 +9,8 @@ const Comments = db.define('Comments', {
     title:{
         type: DataTypes.STRING,
         allowNull:false,
+        require:true
+
     },
 
 })
